@@ -2,7 +2,8 @@ var currentDay = moment().format("dddd MMMM DD, YYYY");
 var currentHour = moment().format("H");
 
 var displayDay = function() {
-    $("#currentDay").html(currentDay);
+    $("#currentDay").text(currentDay);
+   
 };
 
 //
@@ -10,7 +11,7 @@ var displayDay = function() {
 
 $(document).ready(function () {
     // saveBtn click listener 
-    $(".btn").on("click", function () {
+    $(".saveBtn").on("click", function () {
         //  values in the description JQuery
         var text = $(this).siblings("textarea").val();
         var time = $(this).parent().attr("id");
@@ -19,4 +20,23 @@ $(document).ready(function () {
     })
   
   });
-  localStorage.getItem("id")
+  localStorage.getItem(text,time)
+
+  function background () {
+    $(".time-block").each(function(){
+      var timeId =parseInt($(this).attr("id"));
+      if (timeId <currentHour){
+        $(this).addClass("past");
+      } else if (timeId === currentHour){
+        $(this).removeClass("past");
+        $(this).removeClass("future");
+        $(this).addClass("present");
+      }else{
+        $(this).removeClass("past");
+        $(this).removeClass("present");
+        $(this).addClass("future");
+
+      }
+    })
+  }
+  background();
